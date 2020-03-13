@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Tetris" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="SKView">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0qs-pH-lfx">
+                                <rect key="frame" x="40" y="656" width="50" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="2KP-Hv-KdO"/>
+                                    <constraint firstAttribute="height" constant="40" id="Qhv-dp-RWY"/>
+                                </constraints>
+                                <state key="normal" title="Rotate"/>
+                                <connections>
+                                    <action selector="rotateTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JAf-92-4TJ"/>
+                                </connections>
+                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="hIz-ju-B1P">
+                                <rect key="frame" x="226" y="639" width="128" height="77"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="62" translatesAutoresizingMaskIntoConstraints="NO" id="T88-DZ-hOu">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="30"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EAZ-fK-MVJ">
+                                                <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                <state key="normal" title="Left"/>
+                                                <connections>
+                                                    <action selector="moveLeftTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Lys-A4-Ep3"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4oc-dO-dzO">
+                                                <rect key="frame" x="92" y="0.0" width="36" height="30"/>
+                                                <state key="normal" title="Right"/>
+                                                <connections>
+                                                    <action selector="moveRightTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Mek-YF-Xwe"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="128" id="y6r-cP-Zek"/>
+                                        </constraints>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Va-j5-dDz">
+                                        <rect key="frame" x="44" y="47" width="40" height="30"/>
+                                        <state key="normal" title="Down"/>
+                                        <connections>
+                                            <action selector="moveDownTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pZF-io-3vg"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="3Va-j5-dDz" firstAttribute="leading" secondItem="hIz-ju-B1P" secondAttribute="leading" constant="44" id="Gne-tg-zsF"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="0qs-pH-lfx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="6gh-rH-ojS"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="0qs-pH-lfx" secondAttribute="bottom" constant="40" id="L3A-AP-yep"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hIz-ju-B1P" secondAttribute="trailing" constant="60" id="cSb-Mv-8k4"/>
+                            <constraint firstAttribute="bottom" secondItem="hIz-ju-B1P" secondAttribute="bottom" constant="20" symbolic="YES" id="xZR-bz-Fn4"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="downButton" destination="3Va-j5-dDz" id="47H-sH-rwx"/>
+                        <outlet property="leftButton" destination="EAZ-fK-MVJ" id="EMD-9g-kNQ"/>
+                        <outlet property="rightButton" destination="4oc-dO-dzO" id="NbG-TQ-94R"/>
+                        <outlet property="rotateButton" destination="0qs-pH-lfx" id="bED-R2-FVT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>

@@ -119,6 +119,14 @@ class Shape: Hashable {
         return [:]
     }
     
+    var leftBlocksWithOrientation: [Orientation: Array<Block>] {
+        return [:]
+    }
+    
+    var rightBlocksWithOrientation: [Orientation: Array<Block>] {
+        return [:]
+    }
+    
     // final means subclass can't override this method
     final func initializeBlocks() {
         guard let blockOfOrientation = blockDiffPositions[orientation] else {
@@ -152,7 +160,7 @@ class Shape: Hashable {
     final func moveBy(rows: Int, columns: Int) {
         self.row += rows
         self.column += columns
-        for block in blocks {
+        for block in blocks.reversed() {
             block.row += rows
             block.column += columns
         }

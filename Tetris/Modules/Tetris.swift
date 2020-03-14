@@ -12,19 +12,14 @@ let NumColumns = 10
 var nextShape: Shape?
 var currentShape: Shape?
 var bottomBlocks: Array<Block>?
+var boardArray: Array2D<Block> = Array2D<Block>(rows: NumRows, columns: NumColumns)
 
 class Tetris {
     
     let StartingRow = 0
     let StartingColumn = 4
-    var boardArray: Array2D<Block>
-    var stopNow: Bool = false
     
-    init() {
-        boardArray = Array2D<Block>(rows: NumRows, columns: NumColumns)
-        nextShape = nil
-        currentShape = nil
-    }
+    var stopNow: Bool = false
     
     func beginGame() {
         if nextShape == nil {

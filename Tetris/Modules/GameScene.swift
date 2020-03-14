@@ -72,21 +72,18 @@ class GameScene: SKScene {
         if let currentShape = currentShape {
             
             // Delete the shape at last interval position
-            if lastShapePosition.count > 0 {
-                for lastPosition in lastShapePosition {
-                    tetris.boardArray[lastPosition.row, lastPosition.column] = nil
-                }
-                lastShapePosition.removeAll()
-            }
             
             // Add current shape on gameBoard
             for block in currentShape.blocks {
-                tetris.boardArray[block.row, block.column] = block
+                boardArray[block.row, block.column] = block
                 let boardPoint = BoardPoint(row: block.row, column: block.column)
                 lastShapePosition.append(boardPoint)
             }
             
             // Stop falling of current shape, if the shape touch the bottom of the gameboard or other shape
+            
+            drawBoard()
+            
             if isCurrentShapeShouldStop() {
                 tetris.newShape()
                 
@@ -97,11 +94,16 @@ class GameScene: SKScene {
                 isArriveBottom = true
             }
             
-            drawBoard()
-            
             // falling down the current shape to next row
             if !isArriveBottom {
                 currentShape.moveBy(rows: 1, columns: 0)
+            }
+            
+            if lastShapePosition.count > 0 {
+                for lastPosition in lastShapePosition {
+                    boardArray[lastPosition.row, lastPosition.column] = nil
+                }
+                lastShapePosition.removeAll()
             }
         }
     }
@@ -110,28 +112,25 @@ class GameScene: SKScene {
     func drawBoard() {
         shapeLayer.removeChildren(in: blockNodes)
         blockNodes.removeAll()
-        print("<<<<<<")
         for row in 0...(NumRows - 1) {
             var unNullColumn = 0
             
-                for column in 0...(NumColumns - 1) {
-                    if let block = tetris.boardArray[row, column] {
-                        print(block)
-                        let blockNode = SKNode()
-                        let blockTexture = SKTexture(imageNamed: block.color.colorName)
-                        let blockSize = CGSize(width: BlockSize, height: BlockSize)
-                        let blockSpriteNode = SKSpriteNode(texture: blockTexture, size: blockSize)
-                        blockSpriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-                        blockSpriteNode.position = blockCenterPoint(row: block.row, column: block.column)
-                        blockNode.addChild(blockSpriteNode)
-                        blockNodes.append(blockNode)
-                        shapeLayer.addChild(blockNode)
-                        unNullColumn += 1
-                    }
+            for column in 0...(NumColumns - 1) {
+                if let block = boardArray[row, column] {
+                    let blockNode = SKNode()
+                    let blockTexture = SKTexture(imageNamed: block.color.colorName)
+                    let blockSize = CGSize(width: BlockSize, height: BlockSize)
+                    let blockSpriteNode = SKSpriteNode(texture: blockTexture, size: blockSize)
+                    blockSpriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+                    blockSpriteNode.position = blockCenterPoint(row: block.row, column: block.column)
+                    blockNode.addChild(blockSpriteNode)
+                    blockNodes.append(blockNode)
+                    shapeLayer.addChild(blockNode)
+                    unNullColumn += 1
                 }
+            }
             removeTheFullRow(unNilColumnCount: unNullColumn, currentRow: row)            
         }
-        print("<<<<<<")
     }
     
     //approach bottom line or other static shape should stop
@@ -139,7 +138,7 @@ class GameScene: SKScene {
         if let bottomBlocks = bottomBlocks {
             for block in bottomBlocks {
                 // add all bottom blocks to bottomBlocks
-                if block.row == (NumRows - 1) || tetris.boardArray[block.row + 1, block.column] != nil {
+                if block.row == (NumRows - 1) || boardArray[block.row + 1, block.column] != nil {
                     return true
                 }
             }
@@ -151,18 +150,18 @@ class GameScene: SKScene {
     func removeTheFullRow(unNilColumnCount unNullColumn: Int, currentRow row: Int) {
         if unNullColumn == NumColumns {
             for column in 0...(NumColumns - 1) {
-                tetris.boardArray[row, column] = nil
+                boardArray[row, column] = nil
             }
             for r in (0...row - 1).reversed() {
                 for c in 0...(NumColumns - 1) {
                     if r == 0 {
-                        tetris.boardArray[r, c] = nil
+                        boardArray[r, c] = nil
                     } else {
-                        if let block = tetris.boardArray[r, c] {
+                        if let block = boardArray[r, c] {
                             block.row += 1
-                            tetris.boardArray[r + 1, c] = block
+                            boardArray[r + 1, c] = block
                         } else {
-                            tetris.boardArray[r + 1, c] = nil
+                            boardArray[r + 1, c] = nil
                         }
                     }
                 }

@@ -42,4 +42,22 @@ class TShape: Shape {
             Orientation.Left: [blocks[2], blocks[3]]
         ]
     }
+    
+    override var leftBlocksWithOrientation: [Orientation : Array<Block>] {
+        return [
+            Orientation.Up: [blocks[0], blocks[3]],
+            Orientation.Right: [blocks[0], blocks[1], blocks[3]],
+            Orientation.Down: [blocks[0], blocks[1]],
+            Orientation.Left: [blocks[0], blocks[1], blocks[3]]
+        ]
+    }
+    
+    override var rightBlocksWithOrientation: [Orientation : Array<Block>] {
+        return [
+            Orientation.Up: [blocks[2], blocks[3]],
+            Orientation.Right: [blocks[0], blocks[2], blocks[3]],
+            Orientation.Down: [blocks[0], blocks[3]],
+            Orientation.Left: [blocks[0], blocks[2], blocks[3]]
+        ]
+    }
 }

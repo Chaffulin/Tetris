@@ -44,4 +44,21 @@ class LShape: Shape {
         ]
     }
 
+    override var leftBlocksWithOrientation: [Orientation : Array<Block>] {
+        return [
+            Orientation.Up: [blocks[0], blocks[1], blocks[2]],
+            Orientation.Right: [blocks[0], blocks[3]],
+            Orientation.Down: [blocks[0], blocks[2], blocks[3]],
+            Orientation.Left: [blocks[0], blocks[1]]
+        ]
+    }
+    
+    override var rightBlocksWithOrientation: [Orientation : Array<Block>] {
+        return [
+            Orientation.Up: [blocks[0], blocks[1], blocks[3]],
+            Orientation.Right: [blocks[2], blocks[3]],
+            Orientation.Down: [blocks[1], blocks[2], blocks[3]],
+            Orientation.Left: [blocks[0], blocks[3]]
+        ]
+    }
 }

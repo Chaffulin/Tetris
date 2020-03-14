@@ -47,27 +47,27 @@ class ViewController: UIViewController {
         if scene.isCurrentShapeShouldStop() {
             return
         }
-        if let current = currentShape {
-            for block in current.blocks {
-                if block.column <= 0 {
+        if let current = currentShape, let blocks = current.leftBlocksWithOrientation[currentOrientation] {
+            for block in blocks {
+                if block.column <= 0 || (boardArray[block.row, block.column - 1] != nil) {
                     return
                 }
             }
-        }
-        currentShape?.moveBy(rows: 0, columns: -1)
+            current.moveBy(rows: 0, columns: -1)
+        }        
     }
     @IBAction func moveRightTapped(_ sender: UIButton) {
         if scene.isCurrentShapeShouldStop() {
             return
         }
-        if let current = currentShape {
-            for block in current.blocks {
-                if block.column >= 9 {
+        if let current = currentShape, let blocks = current.rightBlocksWithOrientation[currentOrientation] {
+            for block in blocks {
+                if block.column >= 9 || (boardArray[block.row, block.column + 1] != nil) {
                     return
                 }
             }
+            current.moveBy(rows: 0, columns: 1)
         }
-        currentShape?.moveBy(rows: 0, columns: 1)
     }
     @IBAction func moveDownTapped(_ sender: UIButton) {
         if scene.isCurrentShapeShouldStop() {
@@ -103,7 +103,7 @@ class ViewController: UIViewController {
         if currentShape.shapeType == ShapeType.Squere && (nextOrientation == Orientation.Up || nextOrientation == Orientation.Down) {
             if let blocks = currentShape.bottomBlocksWithOrientation[nextOrientation] {
                 for block in blocks {
-                    if tetris.boardArray[block.row + 1, block.column] != nil {
+                    if boardArray[block.row + 1, block.column] != nil {
                         return false
                     }
                 }

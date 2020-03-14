@@ -18,32 +18,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0qs-pH-lfx">
-                                <rect key="frame" x="40" y="656" width="50" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="2KP-Hv-KdO"/>
-                                    <constraint firstAttribute="height" constant="40" id="Qhv-dp-RWY"/>
-                                </constraints>
-                                <state key="normal" title="Rotate"/>
-                                <connections>
-                                    <action selector="rotateTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JAf-92-4TJ"/>
-                                </connections>
-                            </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="hIz-ju-B1P">
-                                <rect key="frame" x="226" y="639" width="128" height="77"/>
+                                <rect key="frame" x="214" y="639" width="140" height="77"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="62" translatesAutoresizingMaskIntoConstraints="NO" id="T88-DZ-hOu">
-                                        <rect key="frame" x="0.0" y="0.0" width="128" height="30"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="T88-DZ-hOu">
+                                        <rect key="frame" x="0.0" y="0.0" width="140" height="30"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EAZ-fK-MVJ">
-                                                <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="W8f-NV-raH"/>
+                                                </constraints>
                                                 <state key="normal" title="Left"/>
                                                 <connections>
                                                     <action selector="moveLeftTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Lys-A4-Ep3"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4oc-dO-dzO">
-                                                <rect key="frame" x="92" y="0.0" width="36" height="30"/>
+                                                <rect key="frame" x="90" y="0.0" width="50" height="30"/>
                                                 <state key="normal" title="Right"/>
                                                 <connections>
                                                     <action selector="moveRightTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Mek-YF-Xwe"/>
@@ -51,11 +43,11 @@
                                             </button>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="128" id="y6r-cP-Zek"/>
+                                            <constraint firstItem="EAZ-fK-MVJ" firstAttribute="width" secondItem="4oc-dO-dzO" secondAttribute="width" id="eLf-Dz-wHS"/>
                                         </constraints>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Va-j5-dDz">
-                                        <rect key="frame" x="44" y="47" width="40" height="30"/>
+                                        <rect key="frame" x="44" y="47" width="52" height="30"/>
                                         <state key="normal" title="Down"/>
                                         <connections>
                                             <action selector="moveDownTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pZF-io-3vg"/>
@@ -66,6 +58,17 @@
                                     <constraint firstItem="3Va-j5-dDz" firstAttribute="leading" secondItem="hIz-ju-B1P" secondAttribute="leading" constant="44" id="Gne-tg-zsF"/>
                                 </constraints>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0qs-pH-lfx">
+                                <rect key="frame" x="20" y="656" width="131" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="2KP-Hv-KdO"/>
+                                    <constraint firstAttribute="height" constant="40" id="Qhv-dp-RWY"/>
+                                </constraints>
+                                <state key="normal" title="Rotate"/>
+                                <connections>
+                                    <action selector="rotateTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JAf-92-4TJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -85,6 +88,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="66.666666666666671" y="29.347826086956523"/>
         </scene>
     </scenes>
 </document>

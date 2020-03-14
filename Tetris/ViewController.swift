@@ -44,10 +44,36 @@ class ViewController: UIViewController {
     }
     
     @IBAction func moveLeftTapped(_ sender: UIButton) {
+        if scene.isCurrentShapeShouldStop() {
+            return
+        }
+        if let current = currentShape {
+            for block in current.blocks {
+                if block.column <= 0 {
+                    return
+                }
+            }
+        }
+        currentShape?.moveBy(rows: 0, columns: -1)
     }
     @IBAction func moveRightTapped(_ sender: UIButton) {
+        if scene.isCurrentShapeShouldStop() {
+            return
+        }
+        if let current = currentShape {
+            for block in current.blocks {
+                if block.column >= 9 {
+                    return
+                }
+            }
+        }
+        currentShape?.moveBy(rows: 0, columns: 1)
     }
     @IBAction func moveDownTapped(_ sender: UIButton) {
+        if scene.isCurrentShapeShouldStop() {
+            return
+        }
+        currentShape?.moveBy(rows: 1, columns: 0)
     }
     
     override func viewDidLoad() {

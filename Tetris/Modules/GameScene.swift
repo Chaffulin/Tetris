@@ -67,7 +67,6 @@ class GameScene: SKScene {
     }
     
     @objc func reloadFallingShape() {
-        
         isArriveBottom = false
         
         if let currentShape = currentShape {
@@ -113,24 +112,29 @@ class GameScene: SKScene {
         blockNodes.removeAll()
         print("<<<<<<")
         for row in 0...(NumRows - 1) {
-            for column in 0...(NumColumns - 1) {
-                if let block = tetris.boardArray[row, column] {
+            var unNullColumn = 0
+            
+                for column in 0...(NumColumns - 1) {
+                    if let block = tetris.boardArray[row, column] {
                         print(block)
-                    let blockNode = SKNode()
-                    let blockTexture = SKTexture(imageNamed: block.color.colorName)
-                    let blockSize = CGSize(width: BlockSize, height: BlockSize)
-                    let blockSpriteNode = SKSpriteNode(texture: blockTexture, size: blockSize)
-                    blockSpriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-                    blockSpriteNode.position = blockCenterPoint(row: block.row, column: block.column)
-                    blockNode.addChild(blockSpriteNode)
-                    blockNodes.append(blockNode)
-                    shapeLayer.addChild(blockNode)
+                        let blockNode = SKNode()
+                        let blockTexture = SKTexture(imageNamed: block.color.colorName)
+                        let blockSize = CGSize(width: BlockSize, height: BlockSize)
+                        let blockSpriteNode = SKSpriteNode(texture: blockTexture, size: blockSize)
+                        blockSpriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+                        blockSpriteNode.position = blockCenterPoint(row: block.row, column: block.column)
+                        blockNode.addChild(blockSpriteNode)
+                        blockNodes.append(blockNode)
+                        shapeLayer.addChild(blockNode)
+                        unNullColumn += 1
+                    }
                 }
-            }
+            removeTheFullRow(unNilColumnCount: unNullColumn, currentRow: row)            
         }
         print("<<<<<<")
     }
     
+    //approach bottom line or other static shape should stop
     func isCurrentShapeShouldStop() -> Bool {
         if let bottomBlocks = bottomBlocks {
             for block in bottomBlocks {
@@ -141,5 +145,28 @@ class GameScene: SKScene {
             }
         }
         return false
+    }
+    
+    //remove a whole row when it's full
+    func removeTheFullRow(unNilColumnCount unNullColumn: Int, currentRow row: Int) {
+        if unNullColumn == NumColumns {
+            for column in 0...(NumColumns - 1) {
+                tetris.boardArray[row, column] = nil
+            }
+            for r in (0...row - 1).reversed() {
+                for c in 0...(NumColumns - 1) {
+                    if r == 0 {
+                        tetris.boardArray[r, c] = nil
+                    } else {
+                        if let block = tetris.boardArray[r, c] {
+                            block.row += 1
+                            tetris.boardArray[r + 1, c] = block
+                        } else {
+                            tetris.boardArray[r + 1, c] = nil
+                        }
+                    }
+                }
+            }
+        }
     }
 }

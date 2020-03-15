@@ -24,6 +24,7 @@ class GameScene: SKScene {
     var blockNodes = Array<SKNode>()
     //last interval position of the falling shape
     var lastShapePosition = Array<BoardPoint>()
+    var isRowFull = false
     
     required init(coder aDecoder: NSCoder) {
         fatalError("NSCoder not supported")
@@ -53,6 +54,7 @@ class GameScene: SKScene {
         gameLayer.addChild(shapeLayer)
         tetris.beginGame()
         startTimer()
+        playThemeSound()
     }
     
     func blockCenterPoint(row: Int, column: Int) -> CGPoint {
@@ -67,44 +69,47 @@ class GameScene: SKScene {
     }
     
     @objc func reloadFallingShape() {
-        isArriveBottom = false
         
-        if let currentShape = currentShape {
-            
-            // Delete the shape at last interval position
-            
-            // Add current shape on gameBoard
-            for block in currentShape.blocks {
-                boardArray[block.row, block.column] = block
-                let boardPoint = BoardPoint(row: block.row, column: block.column)
-                lastShapePosition.append(boardPoint)
-            }
-            
-            // Stop falling of current shape, if the shape touch the bottom of the gameboard or other shape
-            
-            drawBoard()
-            
-            if isCurrentShapeShouldStop() {
-                tetris.newShape()
+        if !isArriveBottom {
+            if let currentShape = currentShape {
                 
-                //Stop create new shape
+                // Delete the shape at last interval position
                 
-                
-                lastShapePosition.removeAll()
-                isArriveBottom = true
-            }
-            
-            // falling down the current shape to next row
-            if !isArriveBottom {
-                currentShape.moveBy(rows: 1, columns: 0)
-            }
-            
-            if lastShapePosition.count > 0 {
-                for lastPosition in lastShapePosition {
-                    boardArray[lastPosition.row, lastPosition.column] = nil
+                // Add current shape on gameBoard
+                for block in currentShape.blocks {
+                    boardArray[block.row, block.column] = block
+                    let boardPoint = BoardPoint(row: block.row, column: block.column)
+                    lastShapePosition.append(boardPoint)
                 }
-                lastShapePosition.removeAll()
+                
+                // Stop falling of current shape, if the shape touch the bottom of the gameboard or other shape
+                
+                drawBoard()
+                
+                if isCurrentShapeShouldStop() {
+                    tetris.newShape()
+                    lastShapePosition.removeAll()
+                    isArriveBottom = true
+                }else {
+                    // falling down the current shape to next row
+                    currentShape.moveBy(rows: 1, columns: 0)
+                }
+                
+                if lastShapePosition.count > 0 {
+                    for lastPosition in lastShapePosition {
+                        boardArray[lastPosition.row, lastPosition.column] = nil
+                    }
+                    lastShapePosition.removeAll()
+                }
             }
+        }else {
+            if isRowFull {
+                playBombSound()
+                isRowFull = false
+            }else {
+                playDropSound()
+                }
+            isArriveBottom = false
         }
     }
 
@@ -149,6 +154,7 @@ class GameScene: SKScene {
     //remove a whole row when it's full
     func removeTheFullRow(unNilColumnCount unNullColumn: Int, currentRow row: Int) {
         if unNullColumn == NumColumns {
+            isRowFull = true
             for column in 0...(NumColumns - 1) {
                 boardArray[row, column] = nil
             }
@@ -167,5 +173,17 @@ class GameScene: SKScene {
                 }
             }
         }
+    }
+    
+    func playThemeSound() {
+        run(SKAction.repeatForever(SKAction.playSoundFileNamed("theme.mp3", waitForCompletion: true)))
+    }
+    
+    func playBombSound() {
+        run(SKAction.playSoundFileNamed("bomb.mp3", waitForCompletion: true))
+    }
+    
+    func playDropSound() {
+        run(SKAction.playSoundFileNamed("drop.mp3", waitForCompletion: true))
     }
 }

@@ -70,10 +70,16 @@ class ViewController: UIViewController {
         }
     }
     @IBAction func moveDownTapped(_ sender: UIButton) {
-        if scene.isCurrentShapeShouldStop() {
-            return
+        if let bottomBlocks = bottomBlocks {
+            for block in bottomBlocks {
+                // add all bottom blocks to bottomBlocks
+                if block.row == (NumRows - 2)
+                    || (boardArray[block.row + 1, block.column] != nil) || (boardArray[block.row + 2, block.column] != nil) {
+                    return
+                }
+            }
         }
-        currentShape?.moveBy(rows: 1, columns: 0)
+        currentShape?.moveBy(rows: 2, columns: 0)
     }
     
     override func viewDidLoad() {

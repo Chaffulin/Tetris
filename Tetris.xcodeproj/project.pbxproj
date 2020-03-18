@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		971F0E4D23FD3DD200418AC9 /* BoardPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 971F0E4C23FD3DD200418AC9 /* BoardPoint.swift */; };
+		97521CD3241E4A70009E8C97 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97521CD2241E4A70009E8C97 /* Assets.xcassets */; };
 		97648EC423EC39E1001DA699 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97648EC323EC39E1001DA699 /* AppDelegate.swift */; };
 		97648EC623EC39E1001DA699 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97648EC523EC39E1001DA699 /* ViewController.swift */; };
 		97648EC923EC39E1001DA699 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97648EC723EC39E1001DA699 /* Main.storyboard */; };
-		97648ECB23EC39E4001DA699 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97648ECA23EC39E4001DA699 /* Assets.xcassets */; };
 		97648ECE23EC39E4001DA699 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97648ECC23EC39E4001DA699 /* LaunchScreen.storyboard */; };
 		97648EE523F180AB001DA699 /* blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97648ED923F180AB001DA699 /* blue@2x.png */; };
 		97648EE623F180AB001DA699 /* orange.png in Resources */ = {isa = PBXBuildFile; fileRef = 97648EDA23F180AB001DA699 /* orange.png */; };
@@ -46,11 +46,11 @@
 
 /* Begin PBXFileReference section */
 		971F0E4C23FD3DD200418AC9 /* BoardPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardPoint.swift; sourceTree = "<group>"; };
+		97521CD2241E4A70009E8C97 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97648EC023EC39E1001DA699 /* Tetris.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tetris.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97648EC323EC39E1001DA699 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		97648EC523EC39E1001DA699 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		97648EC823EC39E1001DA699 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		97648ECA23EC39E4001DA699 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97648ECD23EC39E4001DA699 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97648ECF23EC39E4001DA699 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		97648ED923F180AB001DA699 /* blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "blue@2x.png"; path = "../../../../../../Downloads/swiftris-master/Swiftris/Sprites.atlas/blue@2x.png"; sourceTree = "<group>"; };
@@ -134,7 +134,7 @@
 				97648EC323EC39E1001DA699 /* AppDelegate.swift */,
 				97648EC523EC39E1001DA699 /* ViewController.swift */,
 				97648EC723EC39E1001DA699 /* Main.storyboard */,
-				97648ECA23EC39E4001DA699 /* Assets.xcassets */,
+				97521CD2241E4A70009E8C97 /* Assets.xcassets */,
 				97648ECC23EC39E4001DA699 /* LaunchScreen.storyboard */,
 				97648ECF23EC39E4001DA699 /* Info.plist */,
 			);
@@ -264,9 +264,9 @@
 				97648EED23F180AB001DA699 /* teal.png in Resources */,
 				97648EF723F180B9001DA699 /* drop.mp3 in Resources */,
 				97648EEA23F180AB001DA699 /* red.png in Resources */,
-				97648ECB23EC39E4001DA699 /* Assets.xcassets in Resources */,
 				97648EE623F180AB001DA699 /* orange.png in Resources */,
 				97648EFA23F180B9001DA699 /* theme.mp3 in Resources */,
+				97521CD3241E4A70009E8C97 /* Assets.xcassets in Resources */,
 				97648EC923EC39E1001DA699 /* Main.storyboard in Resources */,
 				97648EEE23F180AB001DA699 /* teal@2x.png in Resources */,
 				97648EE923F180AB001DA699 /* orange@2x.png in Resources */,

@@ -37,6 +37,7 @@ class GameScene: SKScene {
         // We will draw Swiftris from the top-left corner (0, 1.0).
         anchorPoint = CGPoint(x: 0, y: 1.0)
         let background = SKSpriteNode(imageNamed: "background")
+        background.alpha = 0.7
         background.position = CGPoint(x: 0, y: 0)
         background.anchorPoint = CGPoint(x: 0, y: 1.0)
         background.size = self.size

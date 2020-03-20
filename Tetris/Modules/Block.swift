@@ -47,8 +47,8 @@ enum BlockColor: Int, CustomStringConvertible {
 class Block: Hashable, CustomStringConvertible {
     
     // represent the location of the Block on our game board
-    var column: Int
     var row: Int
+    var column: Int
     // represent the visual element of the Block
     var sprite: SKSpriteNode?
     let color: BlockColor
@@ -64,8 +64,8 @@ class Block: Hashable, CustomStringConvertible {
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(column)
         hasher.combine(row)
+        hasher.combine(column)
     }
     
     init(row: Int, column: Int, color: BlockColor) {

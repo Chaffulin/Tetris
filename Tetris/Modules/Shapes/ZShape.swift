@@ -10,10 +10,10 @@ import UIKit
 
 class ZShape: Shape {
     /*
-        Orientation.Up & Down       |1||2|
-                                       |3|4|
+        Orientation.Up & Down       |1|2|
+                                      |3|4|
      
-        Orientation Right & Left       |1|
+        Orientation Right & Left      |1|
                                     |2|3|
                                     |4|
      */

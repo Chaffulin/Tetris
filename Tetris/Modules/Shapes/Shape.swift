@@ -12,7 +12,6 @@ import SpriteKit
 
 //MARK: - Orientation
 let NumOfOrientations: UInt32 = 4
-var currentOrientation = Orientation.Up
 
 enum Orientation: Int, CustomStringConvertible {
     case Up = 0, Right, Down, Left
@@ -150,6 +149,8 @@ class Shape: Hashable {
             blocks[idx].row = row + diff.rowDiff
             blocks[idx].column = column + diff.columnDiff
         }
+        
+        currentShape?.orientation = orientation
     }
     
 //delete
@@ -174,7 +175,6 @@ class Shape: Hashable {
     }
     
     final class func randomShape(startingRow: Int, startingColumn: Int) -> Shape {
-        currentOrientation = Orientation.Up
         if let shape = ShapeType(rawValue: Int(arc4random_uniform(NumOfShapeTypes))) {
             switch shape {
             case ShapeType.Squere:

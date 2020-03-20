@@ -27,19 +27,18 @@ class ViewController: UIViewController {
             return
         }
         
-        let nextOrientation = Orientation.rotate(orientation: currentOrientation, clockwise: true)
-        
         if let current = currentShape {
-            
+        
+            var nextOrientation = Orientation.rotate(orientation: current.orientation, clockwise: true)
+        
             let isRotate = isRotateAvailable(currentShape: current, nextOrientation: nextOrientation)
-            if isRotate {
-                currentOrientation = nextOrientation
+            if !isRotate {
+                nextOrientation = Orientation.rotate(orientation: current.orientation, clockwise: false)
+                current.orientation = nextOrientation
+                current.rotateBlocks(orientation: current.orientation)
             }
             
-            current.rotateBlocks(orientation: currentOrientation)
-            bottomBlocks = current.bottomBlocksWithOrientation[currentOrientation]
-        
-        
+            bottomBlocks = current.bottomBlocksWithOrientation[current.orientation]
         }
     }
     
@@ -47,7 +46,7 @@ class ViewController: UIViewController {
         if scene.isCurrentShapeShouldStop() {
             return
         }
-        if let current = currentShape, let blocks = current.leftBlocksWithOrientation[currentOrientation] {
+        if let current = currentShape, let blocks = current.leftBlocksWithOrientation[current.orientation] {
             for block in blocks {
                 if block.column <= 0 || (boardArray[block.row, block.column - 1] != nil) {
                     return
@@ -56,11 +55,12 @@ class ViewController: UIViewController {
             current.moveBy(rows: 0, columns: -1)
         }        
     }
+    
     @IBAction func moveRightTapped(_ sender: UIButton) {
         if scene.isCurrentShapeShouldStop() {
             return
         }
-        if let current = currentShape, let blocks = current.rightBlocksWithOrientation[currentOrientation] {
+        if let current = currentShape, let blocks = current.rightBlocksWithOrientation[current.orientation] {
             for block in blocks {
                 if block.column >= 9 || (boardArray[block.row, block.column + 1] != nil) {
                     return
@@ -69,6 +69,7 @@ class ViewController: UIViewController {
             current.moveBy(rows: 0, columns: 1)
         }
     }
+    
     @IBAction func moveDownTapped(_ sender: UIButton) {
         if let bottomBlocks = bottomBlocks {
             for block in bottomBlocks {
@@ -106,15 +107,35 @@ class ViewController: UIViewController {
     
     // If lineShape will cover other shape after rotate, then do not allow this rotate
     func isRotateAvailable(currentShape: Shape, nextOrientation: Orientation) -> Bool {
-        if currentShape.shapeType == ShapeType.Squere && (nextOrientation == Orientation.Up || nextOrientation == Orientation.Down) {
-            if let blocks = currentShape.bottomBlocksWithOrientation[nextOrientation] {
-                for block in blocks {
-                    if boardArray[block.row + 1, block.column] != nil {
-                        return false
-                    }
+        currentShape.rotateBlocks(orientation: nextOrientation)
+        
+        //left
+        if let blocks = currentShape.leftBlocksWithOrientation[nextOrientation] {
+            for block in blocks {
+                if block.column <= 0 {
+                    return false
                 }
             }
         }
+        
+        //right
+        if let blocks = currentShape.rightBlocksWithOrientation[nextOrientation] {
+            for block in blocks {
+                if block.column >= (NumColumns - 1) {
+                    return false
+                }
+            }
+        }
+        
+        //down
+        if let blocks = currentShape.bottomBlocksWithOrientation[nextOrientation] {
+            for block in blocks {
+                if block.row >= (NumRows - 1) || boardArray[block.row + 1, block.column] != nil {
+                    return false
+                }
+            }
+        }
+        
         return true
     }
 }

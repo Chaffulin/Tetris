@@ -9,21 +9,23 @@ import UIKit
 
 let NumRows = 20
 let NumColumns = 10
+let StartingRow = 0
+let StartingColumn = 4
+let newShapeRow = 2
+var newShapeColumn = 12
 var nextShape: Shape?
 var currentShape: Shape?
 var bottomBlocks: Array<Block>?
-var boardArray: Array2D<Block> = Array2D<Block>(rows: NumRows, columns: NumColumns)
+var boardArray: Array2D<Block> = Array2D<Block>(rows: NumRows, columns: NumColumns + 5)
+var nextShapePositions = Array<BoardPoint>()
 
 class Tetris {
-    
-    let StartingRow = 0
-    let StartingColumn = 4
     
     var stopNow: Bool = false
     
     func beginGame() {
         if nextShape == nil {
-            nextShape = Shape.randomShape(startingRow: StartingRow, startingColumn: StartingColumn)
+            nextShape = Shape.randomShape(startingRow: newShapeRow, startingColumn: newShapeColumn)
         }
         newShape()
     }
@@ -32,19 +34,31 @@ class Tetris {
         if stopNow {
             stopTimer()
         }
-        currentShape = nextShape
-        if let next = nextShape, let bottomArray = next.bottomBlocksWithOrientation[next.newShapeOrientation] {
+        
+        if let next = nextShape {
+            
+            for point in nextShapePositions {
+                boardArray[point.row, point.column] = nil
+            }
+            nextShapePositions.removeAll()
+            
+            next.moveTo(row: StartingRow, column: StartingColumn)
+            currentShape = next
+        }
+        
+        if let current = currentShape, let bottomArray = current.bottomBlocksWithOrientation[current.newShapeOrientation] {
+            bottomBlocks = bottomArray
             for block in bottomArray {
-                if (boardArray[block.row + 1, block.column] != nil), !stopNow {
+                if (boardArray[block.row + 1, block.column] != nil) && !stopNow {
                     stopNow = true
                 }
             }
         }
         
-        if let shape = currentShape, let blocks = shape.bottomBlocksWithOrientation[shape.newShapeOrientation] {
-            bottomBlocks = blocks
+        nextShape = Shape.randomShape(startingRow: newShapeRow, startingColumn: newShapeColumn)
+        if let next = nextShape {
+            addNextShapeOnBoard(next)
         }
-        nextShape = Shape.randomShape(startingRow: StartingRow, startingColumn: StartingColumn)
     }
     
     
@@ -52,5 +66,13 @@ class Tetris {
         timer.invalidate()
     }
     
+    func addNextShapeOnBoard(_ nextShape: Shape) {
+        let blocks = nextShape.blocks
+        for block in blocks {
+            boardArray[block.row, block.column] = block
+            let point = BoardPoint(row: block.row, column: block.column)
+            nextShapePositions.append(point)
+        }
+    }
 }
 

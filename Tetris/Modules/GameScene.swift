@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-let BlockSize: CGFloat = 30.0
+let BlockSize: CGFloat = 25.0
 let TimeInterval: TimeInterval = 0.5
 var timer = Timer()
 
@@ -17,7 +17,7 @@ class GameScene: SKScene {
     // Gameboard Layout
     let gameLayer = SKNode()
     let shapeLayer = SKNode()
-    var layerPosition = CGPoint(x: 6, y: -25)
+    var layerPosition = CGPoint(x: 6, y: -safeAreaTop)
     // Is the current shape arrived the bottom of the gameboard?
     var isArriveBottom = false
     let tetris = Tetris()
@@ -121,7 +121,7 @@ class GameScene: SKScene {
         for row in 0...(NumRows - 1) {
             var unNullColumn = 0
             
-            for column in 0...(NumColumns - 1) {
+            for column in 0...(NumColumns + 4) {
                 if let block = boardArray[row, column] {
                     let blockNode = SKNode()
                     let blockTexture = SKTexture(imageNamed: block.color.colorName)

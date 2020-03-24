@@ -9,6 +9,8 @@
 import UIKit
 import SpriteKit
 
+var safeAreaTop: CGFloat = 0.0
+
 class ViewController: UIViewController {
 
     // Swift typically enforces instantiation
@@ -16,11 +18,14 @@ class ViewController: UIViewController {
     // To avoid this rule, we've added an ! after the type.
     var scene: GameScene!
     let tetris = Tetris()
-
+    //Keep GameScene launch once
+    var isGameSceneLaunched: Bool = false
+    
     @IBOutlet weak var rotateButton: UIButton!
     @IBOutlet weak var leftButton: UIButton!
     @IBOutlet weak var rightButton: UIButton!
     @IBOutlet weak var downButton: UIButton!
+    @IBOutlet weak var nextShapeLable: UILabel!
     
     @IBAction func rotateTapped(_ sender: UIButton) {
         if scene.isCurrentShapeShouldStop() {
@@ -85,17 +90,28 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        if #available(iOS 11.0, *), let view = self.view {
+            safeAreaTop = view.safeAreaInsets.top
+        }
         
-        // Configure the view.
-        let skView = view as! SKView
-        skView.isMultipleTouchEnabled = false
-        
-        // Create and configure the scene.
-        scene = GameScene(size: skView.bounds.size)
-        scene.scaleMode = .aspectFill
-        
-        // Present the scene.
-        skView.presentScene(scene)
+        if !isGameSceneLaunched {
+            guard let skView = self.view as! SKView? else {
+                return
+            }
+            skView.isMultipleTouchEnabled = false
+            // Create and configure the scene.
+            scene = GameScene(size: skView.bounds.size)
+            scene.scaleMode = .aspectFill
+            
+            // Present the scene.
+            skView.presentScene(scene)
+            
+            isGameSceneLaunched = true
+        }        
     }
 
     func endGame() {
@@ -138,5 +154,24 @@ class ViewController: UIViewController {
         
         return true
     }
+    
+    func isLargeScreen() -> Bool {
+        if let screenHeight = UIScreen.main.currentMode?.size.height {
+            if screenHeight >= 2436 {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func isSmallScreen() -> Bool {
+        if let screenHeight = UIScreen.main.currentMode?.size.height {
+            if screenHeight <= 1334 {
+                return true
+            }
+        }
+        return false
+    }
+
 }
 
